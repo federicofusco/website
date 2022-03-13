@@ -1,5 +1,10 @@
 import Logo from './Logo'
 
+/**
+ * Displays a fixed navbar
+ * 
+ * @param {Function} menuToggle - The function which should toggle the menu's visibility
+ */
 export default function Navbar ({ menuToggle }) {
 	return (
 		<div className="z-10 bg-background-dark fixed top-0 left-0 w-screen py-8 px-12 flex justify-between">

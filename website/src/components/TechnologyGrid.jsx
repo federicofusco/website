@@ -1,3 +1,9 @@
+/**
+ * Displays a grid of tools/technologies each with their own icon
+ * 
+ * @param {Array} data - An array of objects which contain the name and data URI of a technology 
+ * @example <TechnologyGrid data={[{ name: "Example", icon: "data:......" }]} />
+ */
 export default function TechnologiesGrid ({ data }) {
 
 	const list = data.map ( ( technology ) =>

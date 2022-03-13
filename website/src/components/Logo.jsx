@@ -1,3 +1,6 @@
+/**
+ * Displays the website's logo (_fede)
+ */
 export default function Logo () {
 	return (
 		<div>

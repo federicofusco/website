@@ -1,8 +1,7 @@
 import React, { useState, useRef} from 'react'
-import { VariableInput, FunctionButton } from '../components/CustomInputs'
+import { Code, VariableInput, FunctionButton } from '../components/CustomInputs'
 import Navbar from './../components/Navbar'
-import Code from '../components/Code'
-import TechnologyGrid from '../components/TechnologyCard'
+import TechnologyGrid from '../components/TechnologyGrid'
 import Menu from '../components/Menu'
 
 export default function App () {
@@ -26,7 +25,7 @@ export default function App () {
 			{/* Title */}
 			<div ref={ adjectiveRef } className="mt-32 w-full px-4 md:px-12 pt-12">
 				<Code text="hello()" />
-				<VariableInput parent={ adjectiveRef } name="adjective" value={ defaultAdjective } updateValue={ setAdjective } />
+				<VariableInput parent={ adjectiveRef } name="adjective" defaultValue={ defaultAdjective } onChange={ setAdjective } />
 
 				<h1 className="max-w-4xl mt-6 font-black text-5xl md:text-7xl text-white">
 					Creating <span className="font-black text-5xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-fuchsia-700">{ adjective }</span> websites and apps.
@@ -38,6 +37,7 @@ export default function App () {
 				<h2 className="text-white text-xl font-medium mb-12">Utilizing an ever-growing list of technologies and tools.</h2>
 				<Code text="const frequent_tech = [" />
 
+				{/* Forgive me react gods, for I have sinned: I was forced to put these data URIs */}
 				<TechnologyGrid data={[
 					{
 						name: "React",
