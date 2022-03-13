@@ -1,23 +1,24 @@
 module.exports = {
-  content: [
-	  './index.html',
-	  './src/**/*.{js,jsx}'
-  ],
-  theme: {
-    extend: {
-		colors: {
-			background: {
-				dark: "#101010",
-				light: "#fafafa"
+	darkMode: 'class',
+	content: [
+		'./index.html',
+		'./src/**/*.{js,jsx}'
+	],
+	theme: {
+		extend: {
+			colors: {
+				background: {
+					dark: "#101010",
+					light: "#f1f5f9"
+				}
+			},
+			minWidth: {
+				'32': '8rem'
 			}
 		},
-		minWidth: {
-			'32': '8rem'
+		fontFamily: {
+			'mono': ['Fira Code', 'monospace']
 		}
 	},
-	fontFamily: {
-		'mono': ['Fira Code', 'monospace']
-	}
-  },
-  plugins: [],
+	plugins: [],
 }

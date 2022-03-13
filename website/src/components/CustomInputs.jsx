@@ -19,9 +19,9 @@ function Code ({ text }) {
  */
 function FunctionButton ({ name, parameters, onButtonClick }) {
 	return (
-		<button className="bg-transparent hover:bg-neutral-900 px-1" onClick={ onButtonClick }>
+		<button className="bg-transparent hover:bg-gray-200 dark:hover:bg-neutral-900 px-1" onClick={ onButtonClick }>
 			<Code text={ name } />
-			<span className=" font-bold text-md text-emerald-500">({ parameters && parameters.map ( parameter => <span key={ parameter } className=" font-bold text-white">{ parameter } </span> ) })</span>
+			<span className=" font-bold text-emerald-500">({ parameters && parameters.map ( parameter => <span key={ parameter } className=" font-bold text-white">{ parameter } </span> ) })</span>
 		</button>
 	)
 }
@@ -67,7 +67,7 @@ function VariableInput ({ name, defaultValue, onChange, parent }) {
 		<div className="flex justify-start">
 			<Code text={ `let ${ name } = "` } />
 			<span className="hidden" ref={ spanRef }>{ content }</span>
-			<input style={{ width }} className="overflow-hidden bg-transparent text-zinc-500  outline-none focus:bg-zinc-900" defaultValue={ defaultValue } onChange={ changeHandler } />
+			<input style={{ width }} className="overflow-hidden bg-transparent text-zinc-500  outline-none focus:bg-gray-200 dark:focus:bg-zinc-900" defaultValue={ defaultValue } onChange={ changeHandler } />
 			<Code text='";' />
 		</div>
 	);
@@ -79,20 +79,35 @@ function VariableInput ({ name, defaultValue, onChange, parent }) {
  * declaration itself is called
  * 
  * @param {String} name - The name of the variable
- * @param {String} value - The default value fo the varible
+ * @param {String|Array} value - The default value of the varible
  * @param {Function} onButtonClick - The function which should be called when the variable's value is clicked 
  */
 function VariableButton ({ name, value, onButtonClick }) {
 
-	const toggleValue = () => {
-		onButtonClick ();
+	// Checks if there are multiple values
+	let toggleValue, setCurrentValue;
+	let currentValue = value;
+	if ( typeof value != "string" && typeof value === "object" ) {
+
+		// Creates the value state
+		[currentValue, setCurrentValue] = useState ( value[0] );
+		toggleValue = () => {
+
+			// Updates the value state
+			setCurrentValue ( currentValue === value[0] ? value[1] : value[0] );
+			onButtonClick ();
+		}
+	} else {
+		toggleValue = () => {
+			onButtonClick ();
+		}
 	}
 
 	return (
 		<div>
 			<Code text={ `${ name } = ` } />
-			<button className="bg-transparent hover:bg-neutral-900" onClick={ toggleValue }>
-				<span className="font-medium text-md text-zinc-500">{ value }</span>
+			<button className="h-full bg-transparent hover:bg-gray-200 dark:hover:bg-neutral-900" onClick={ toggleValue }>
+				<span className="font-medium text-zinc-500">{ currentValue }</span>
 			</button>
 		</div>
 	)

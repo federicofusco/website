@@ -1,8 +1,7 @@
 import React, { useState, useRef} from 'react'
-import { Code, VariableInput, FunctionButton } from '../components/CustomInputs'
+import { Code, VariableInput } from '../components/CustomInputs'
 import Navbar from './../components/Navbar'
 import TechnologyGrid from '../components/TechnologyGrid'
-import Menu from '../components/Menu'
 
 export default function App () {
 
@@ -10,31 +9,24 @@ export default function App () {
 	const adjectiveRef = useRef ();
 	const [adjective, setAdjective] = useState ( defaultAdjective );
 
-	const [menuVisible, setMenuVisibility] = useState ( false );
-	const toggleMenu = () => {
-		setMenuVisibility ( !menuVisible );
-	} 
-
 	return (
 		<div className="overflow-x-hidden">
-
-			<Menu menuVisible={ menuVisible } toggleMenu={ toggleMenu } />
 			
-			<Navbar  menuToggle={ <FunctionButton name="toggleMenu" onButtonClick={ toggleMenu }/> } />
+			<Navbar />
 
 			{/* Title */}
 			<div ref={ adjectiveRef } className="mt-32 w-full px-4 md:px-12 pt-12">
 				<Code text="hello()" />
 				<VariableInput parent={ adjectiveRef } name="adjective" defaultValue={ defaultAdjective } onChange={ setAdjective } />
 
-				<h1 className="max-w-4xl mt-6 font-black text-5xl md:text-7xl text-white">
+				<h1 className="max-w-4xl mt-6 font-black text-5xl md:text-7xl text-background-dark dark:text-white">
 					Creating <span className="font-black text-5xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-fuchsia-700">{ adjective }</span> websites and apps.
 				</h1>
 			</div>
 
 			{/* Technologies */}
 			<div className="w-full px-4 md:px-12 py-20">
-				<h2 className="text-white text-xl font-medium mb-12">Utilizing an ever-growing list of technologies and tools.</h2>
+				<h2 className="text-background-dark dark:text-white text-xl font-medium mb-12">Utilizing an ever-growing list of technologies and tools.</h2>
 				<Code text="const frequent_tech = [" />
 
 				{/* Forgive me react gods, for I have sinned: I was forced to put these data URIs */}
