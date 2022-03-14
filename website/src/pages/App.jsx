@@ -2,12 +2,34 @@ import React, { useState, useRef} from 'react'
 import { Code, VariableInput } from '../components/CustomInputs'
 import Navbar from './../components/Navbar'
 import TechnologyGrid from '../components/TechnologyGrid'
+// import * as Sentiment from 'sentiment'
+import Sentiment from 'sentiment'
 
 export default function App () {
 
 	const defaultAdjective = "awesome";
+	const adjectiveParentRef = useRef ();
 	const adjectiveRef = useRef ();
 	const [adjective, setAdjective] = useState ( defaultAdjective );
+	const updateAdjective = ( adjective ) => {
+
+		// Tests if the sentence is positive
+		var sentiment = new Sentiment ();
+		if ( sentiment.analyze ( `Creating ${ adjective } websites and apps.` ).score < 0 ) {
+			
+			// lol
+			setAdjective ( "*great*" );
+			
+			adjectiveRef.current.classList.toggle ( "animate-bounce" );
+			setTimeout ( () => {
+				adjectiveRef.current.classList.toggle ( "animate-bounce" );
+			}, 560);
+			
+			return;
+		}
+
+		setAdjective ( adjective );
+	}
 
 	return (
 		<div className="overflow-x-hidden">
@@ -15,12 +37,12 @@ export default function App () {
 			<Navbar />
 
 			{/* Title */}
-			<div ref={ adjectiveRef } className="mt-32 w-full px-4 md:px-12 pt-12">
+			<div ref={ adjectiveParentRef } className="mt-32 w-full px-4 md:px-12 pt-12">
 				<Code text="hello()" />
-				<VariableInput parent={ adjectiveRef } name="adjective" defaultValue={ defaultAdjective } onChange={ setAdjective } />
+				<VariableInput parent={ adjectiveParentRef } name="adjective" defaultValue={ defaultAdjective } onChange={ updateAdjective } />
 
 				<h1 className="max-w-4xl mt-6 font-black text-5xl md:text-7xl text-background-dark dark:text-white">
-					Creating <span className="font-black text-5xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-fuchsia-700">{ adjective }</span> websites and apps.
+					Creating <span ref={ adjectiveRef } className="inline-block font-black text-5xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-fuchsia-700">{ adjective }</span> websites and apps.
 				</h1>
 			</div>
 
